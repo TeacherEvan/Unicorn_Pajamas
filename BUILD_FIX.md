@@ -37,9 +37,12 @@ The Gradle wrapper is a critical component that:
 
 ### 1. Download and Add gradle-wrapper.jar
 ```bash
+# Download the Gradle wrapper JAR for the version specified in gradle-wrapper.properties
 curl -L -o gradle/wrapper/gradle-wrapper.jar \
-  https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradle/wrapper/gradle-wrapper.jar
+  https://raw.githubusercontent.com/gradle/gradle/v<VERSION>/gradle/wrapper/gradle-wrapper.jar
 ```
+
+Note: Replace `<VERSION>` with the version from `gradle/wrapper/gradle-wrapper.properties`
 
 ### 2. Update .gitignore
 Changed:

@@ -18,7 +18,14 @@ IF a request covers multiple foundations (e.g., Database + UI + API), YOU MUST P
 - Allows for incremental delivery
 
 ### 2. Stack Verification
-Always verify the latest syntax/versions (e.g., React 19, Python 3.12, Kotlin 1.9.20, Android API 34) before generating code.
+Always verify the latest syntax/versions before generating code.
+
+**Current Stack (as of December 2025):**
+- React 19, Vue 3
+- Python 3.12+
+- Kotlin 1.9.20+
+- Android API 34
+- Node.js 20 LTS
 
 **Rationale:**
 - Prevents deprecated API usage
@@ -94,13 +101,22 @@ You must output this block before any code:
 - **Validation:** Zod (TypeScript), Pydantic (Python), Data class validation (Kotlin)
 - **Error Boundaries:** Graceful degradation, user-friendly error messages
 - **Examples:**
-  ```kotlin
-  // Good: Strict typing
-  fun getUserById(userId: String): User?
-  
-  // Bad: Loose typing
-  fun getUser(id: Any): Any?
-  ```
+```kotlin
+// Good: Strict typing with clear return types
+fun getUserById(userId: String): Result<User> {
+    return try {
+        val user = database.findUser(userId)
+        Result.success(user)
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+}
+
+// Bad: Loose typing with unclear contract
+fun getUser(id: Any): Any? {
+    return database.find(id)
+}
+```
 
 #### Style Requirements
 **"Visually Stunning" = Perfect spacing, typography, and fluid transitions**
