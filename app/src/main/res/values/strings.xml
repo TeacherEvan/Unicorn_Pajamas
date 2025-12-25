@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Unicorn Pajamas</string>
+    <string name="github_url">GitHub Repository URL</string>
+    <string name="huggingface_url">Hugging Face Repository URL</string>
+    <string name="github_token">GitHub Personal Access Token</string>
+    <string name="huggingface_token">Hugging Face Token</string>
+    <string name="sync_button">Sync Repository</string>
+    <string name="status_label">Status:</string>
+    <string name="status_idle">Ready to sync</string>
+    <string name="status_syncing">Syncing...</string>
+    <string name="status_success">Sync completed successfully!</string>
+    <string name="status_error">Error: %s</string>
+    <string name="settings">Settings</string>
+    <string name="save_credentials">Save Credentials</string>
+    <string name="credentials_saved">Credentials saved securely</string>
+    <string name="enter_github_url">Enter GitHub repository URL</string>
+    <string name="enter_hf_url">Enter Hugging Face repository URL</string>
+    <string name="enter_github_token">Enter GitHub PAT</string>
+    <string name="enter_hf_token">Enter Hugging Face token</string>
+    <string name="clone_progress">Cloning repository...</string>
+    <string name="push_progress">Pushing to Hugging Face...</string>
+    <string name="invalid_url">Please enter valid repository URLs</string>
+    <string name="missing_tokens">Please configure your access tokens in Settings</string>
+</resources>

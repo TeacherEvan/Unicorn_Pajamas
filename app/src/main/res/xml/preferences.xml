@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="GitHub Settings">
+
+        <EditTextPreference
+            android:key="github_token"
+            android:title="@string/github_token"
+            android:summary="Your GitHub Personal Access Token"
+            android:inputType="textPassword" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Hugging Face Settings">
+
+        <EditTextPreference
+            android:key="huggingface_token"
+            android:title="@string/huggingface_token"
+            android:summary="Your Hugging Face Access Token"
+            android:inputType="textPassword" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
