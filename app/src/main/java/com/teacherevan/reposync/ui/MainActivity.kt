@@ -111,7 +111,17 @@ class MainActivity : AppCompatActivity() {
             return
         }
         
-        if (!hfRepoId.contains("/")) {
+        // Stricter format validation for GitHub URL
+        // Accept URLs like: https://github.com/owner/repo or https://github.com/owner/repo.git
+        val githubUrlPattern = Regex("^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(/|\\.git)?$")
+        if (!githubUrlPattern.matches(githubUrl)) {
+            showError("GitHub URL must be in format: https://github.com/username/repo-name")
+            return
+        }
+        
+        // Accept HF repo IDs like: username/repo-name
+        val hfRepoIdPattern = Regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+        if (!hfRepoIdPattern.matches(hfRepoId)) {
             showError("Hugging Face Repository ID must be in format: username/repo-name")
             return
         }

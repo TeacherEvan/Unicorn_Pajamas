@@ -43,6 +43,7 @@ class RepoSyncWorker(
             val repoType = inputData.getString(KEY_REPO_TYPE) ?: "model"
             val syncId = inputData.getLong(KEY_SYNC_ID, -1)
             
+            // WARNING: Never log hfToken or any other credentials (including in URLs or parameters).
             Log.d(TAG, "Starting sync: $githubUrl -> $hfRepoId")
             
             // Update status to IN_PROGRESS
@@ -90,7 +91,7 @@ class RepoSyncWorker(
                 }
             }
             
-            Result.success(Data.Builder()
+            return@withContext Result.success(Data.Builder()
                 .putString("status", status)
                 .putString("message", message)
                 .build())

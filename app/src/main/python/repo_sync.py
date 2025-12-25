@@ -4,12 +4,14 @@ This module handles the core logic for cloning GitHub repositories
 and uploading them to Hugging Face.
 """
 
-from huggingface_hub import HfApi, HfFolder
+from huggingface_hub import HfApi
 import subprocess
 import shutil
 import os
 import tempfile
 import logging
+import re
+from urllib.parse import urlparse
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -49,9 +51,10 @@ def sync_repos(github_url, hf_repo_id, hf_token, repo_type="model"):
         
         logger.info(f"Starting sync: {github_url} -> {hf_repo_id}")
         
-        # 1. Create temporary directory for cloning
-        local_path = tempfile.mkdtemp(prefix="reposync_")
-        logger.info(f"Created temp directory: {local_path}")
+        # 1. Clone GitHub repository into a subdirectory
+        temp_base = tempfile.mkdtemp(prefix="reposync_")
+        local_path = os.path.join(temp_base, "repo")
+        logger.info(f"Created temp directory: {temp_base}")
         
         # 2. Clone GitHub repository
         logger.info("Cloning GitHub repository...")
@@ -117,9 +120,9 @@ def sync_repos(github_url, hf_repo_id, hf_token, repo_type="model"):
     
     finally:
         # 7. Cleanup temporary directory
-        if local_path and os.path.exists(local_path):
+        if local_path and os.path.exists(os.path.dirname(local_path)):
             try:
-                shutil.rmtree(local_path)
+                shutil.rmtree(os.path.dirname(local_path))
                 logger.info("Cleaned up temporary directory")
             except Exception as e:
                 logger.warning(f"Cleanup warning: {str(e)}")
@@ -138,14 +141,27 @@ def validate_github_url(url):
     if not url:
         return False
     
-    valid_patterns = [
-        "github.com/",
-        "https://github.com/",
-        "http://github.com/",
-        "git@github.com:"
-    ]
-    
-    return any(pattern in url for pattern in valid_patterns)
+    try:
+        # Parse the URL to extract the domain
+        if url.startswith("git@"):
+            # SSH format: git@github.com:user/repo.git
+            if not url.startswith("git@github.com:"):
+                return False
+            # Validate that there's a path after the colon
+            path = url.split(":", 1)[1] if ":" in url else ""
+            return bool(path and "/" in path)
+        else:
+            # HTTPS/HTTP format
+            parsed = urlparse(url)
+            # Check that the domain is github.com (not just contains it)
+            if parsed.netloc.lower() not in ["github.com", "www.github.com"]:
+                return False
+            # Validate path format: /user/repo or /user/repo.git
+            path = parsed.path.strip("/")
+            parts = path.split("/")
+            return len(parts) >= 2 and all(part for part in parts[:2])
+    except Exception:
+        return False
 
 
 def validate_hf_repo_id(repo_id):

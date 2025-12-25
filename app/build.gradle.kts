@@ -23,10 +23,9 @@ android {
         }
 
         python {
-            buildPython("/usr/bin/python3")
             pip {
-                install("huggingface_hub")
-                install("GitPython")
+                install("huggingface_hub==0.20.0")
+                install("GitPython==3.1.40")
             }
         }
     }
@@ -76,7 +75,7 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
     
     // Biometric authentication
-    implementation("androidx.biometric:biometric:1.2.0-alpha05")
+    implementation("androidx.biometric:biometric:1.1.0")
     
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
@@ -85,7 +84,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     
     // Security Crypto
-    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("androidx.security:security-crypto:1.0.0")
     
     // Testing
     testImplementation("junit:junit:4.13.2")
