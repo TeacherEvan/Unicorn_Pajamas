@@ -19,6 +19,12 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     
+    companion object {
+        // Compiled regex patterns for validation (compiled once for performance)
+        private val GITHUB_URL_PATTERN = Regex("^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(/|\\.git)?$")
+        private val HF_REPO_ID_PATTERN = Regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+    }
+    
     private lateinit var tokenStorage: SecureTokenStorage
     private lateinit var database: SyncDatabase
     private lateinit var biometricHelper: BiometricAuthHelper
@@ -113,15 +119,13 @@ class MainActivity : AppCompatActivity() {
         
         // Stricter format validation for GitHub URL
         // Accept URLs like: https://github.com/owner/repo or https://github.com/owner/repo.git
-        val githubUrlPattern = Regex("^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(/|\\.git)?$")
-        if (!githubUrlPattern.matches(githubUrl)) {
+        if (!GITHUB_URL_PATTERN.matches(githubUrl)) {
             showError("GitHub URL must be in format: https://github.com/username/repo-name")
             return
         }
         
         // Accept HF repo IDs like: username/repo-name
-        val hfRepoIdPattern = Regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
-        if (!hfRepoIdPattern.matches(hfRepoId)) {
+        if (!HF_REPO_ID_PATTERN.matches(hfRepoId)) {
             showError("Hugging Face Repository ID must be in format: username/repo-name")
             return
         }

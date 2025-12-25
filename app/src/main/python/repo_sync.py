@@ -39,6 +39,7 @@ def sync_repos(github_url, hf_repo_id, hf_token, repo_type="model"):
     Raises:
         RepoSyncError: If any step of the sync process fails
     """
+    temp_base = None
     local_path = None
     
     try:
@@ -120,9 +121,9 @@ def sync_repos(github_url, hf_repo_id, hf_token, repo_type="model"):
     
     finally:
         # 7. Cleanup temporary directory
-        if local_path and os.path.exists(os.path.dirname(local_path)):
+        if temp_base and os.path.exists(temp_base):
             try:
-                shutil.rmtree(os.path.dirname(local_path))
+                shutil.rmtree(temp_base)
                 logger.info("Cleaned up temporary directory")
             except Exception as e:
                 logger.warning(f"Cleanup warning: {str(e)}")
@@ -148,7 +149,7 @@ def validate_github_url(url):
             if not url.startswith("git@github.com:"):
                 return False
             # Validate that there's a path after the colon
-            path = url.split(":", 1)[1] if ":" in url else ""
+            path = url.split(":", 1)[1]
             return bool(path and "/" in path)
         else:
             # HTTPS/HTTP format
