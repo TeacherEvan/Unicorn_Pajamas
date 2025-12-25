@@ -5,6 +5,17 @@ All notable changes to Unicorn Pajamas will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed - 2025-12-25
+- **Critical Build Failure**: Added missing gradle-wrapper.jar file
+- **Build System**: Corrected .gitignore to allow gradle-wrapper.jar tracking
+- Builds now work correctly for fresh repository clones
+
+### Added - 2025-12-25
+- **Documentation**: DEVELOPMENT_METHODOLOGY.md - Senior Principal Architect development standards
+- **Documentation**: BUILD_FIX.md - Detailed explanation of build failure fix
+
 ## [1.0.0] - 2025-12-25
 
 ### Added - Initial Release
