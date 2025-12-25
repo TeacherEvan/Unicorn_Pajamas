@@ -138,6 +138,23 @@ MIT License - See LICENSE file for details
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+For contributors, please review:
+- [DEVELOPMENT_METHODOLOGY.md](DEVELOPMENT_METHODOLOGY.md) - Our development approach and standards
+- [ARCHITECTURE.md](ARCHITECTURE.md) - System architecture and design patterns
+- [BUILD.md](BUILD.md) - Build instructions and troubleshooting
+
+## Documentation
+
+- **[README.md](README.md)** - This file (getting started)
+- **[DEVELOPMENT_METHODOLOGY.md](DEVELOPMENT_METHODOLOGY.md)** - Senior Architect development standards
+- **[BUILD_FIX.md](BUILD_FIX.md)** - Build system troubleshooting
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture
+- **[BUILD.md](BUILD.md)** - Build instructions
+- **[SECURITY.md](SECURITY.md)** - Security policies
+- **[API_INTEGRATION.md](API_INTEGRATION.md)** - Deep link integration
+- **[EXAMPLES.md](EXAMPLES.md)** - Configuration examples
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history
+
 ## Author
 
 TeacherEvan
