@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RepoSync</string>
+    <string name="github_url_hint">GitHub Repository URL</string>
+    <string name="hf_repo_id_hint">Hugging Face Repo ID (username/repo-name)</string>
+    <string name="repo_type_label">Repository Type</string>
+    <string name="sync_button">Sync Repository</string>
+    <string name="setup_tokens_button">Setup Tokens</string>
+    <string name="sync_history_title">Sync History</string>
+    <string name="hf_token_dialog_title">Setup API Tokens</string>
+    <string name="hf_token_hint">Enter your HF token</string>
+    <string name="hf_token_help">Get your token from: https://huggingface.co/settings/tokens</string>
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="error_missing_github_url">Please enter a GitHub URL</string>
+    <string name="error_missing_hf_repo_id">Please enter a Hugging Face Repository ID</string>
+    <string name="error_invalid_hf_repo_id">Hugging Face Repository ID must be in format: username/repo-name</string>
+    <string name="error_missing_hf_token">Please set up your Hugging Face token first</string>
+    <string name="success_token_saved">Hugging Face token saved securely</string>
+    <string name="success_sync_started">Synchronization started in background</string>
+    <string name="biometric_auth_title">Authenticate Sync</string>
+    <string name="biometric_auth_subtitle">Verify to start repository synchronization</string>
+</resources>

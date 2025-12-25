@@ -1,0 +1,34 @@
+# Android Studio and Gradle
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Chaquopy
+.chaquopy/
+
+# Sensitive data
+secrets.properties
+keystore.jks
+*.jks
+
+# Temporary files
+/temp_repo
+*.log
+
+# Android
+*.apk
+*.ap_
+*.aab
