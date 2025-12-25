@@ -215,8 +215,11 @@ class MainActivity : AppCompatActivity() {
         
         // Auto-scroll to bottom
         binding.logText.post {
-            val scrollView = binding.logText.parent as? android.widget.ScrollView
-            scrollView?.fullScroll(View.FOCUS_DOWN)
+            var parent = binding.logText.parent
+            while (parent != null && parent !is android.widget.ScrollView) {
+                parent = parent.parent as? android.view.View
+            }
+            (parent as? android.widget.ScrollView)?.fullScroll(View.FOCUS_DOWN)
         }
     }
 

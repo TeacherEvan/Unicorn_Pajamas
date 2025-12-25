@@ -35,8 +35,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http" android:host="*" />
-                <data android:scheme="https" android:host="*" />
+                <data android:scheme="https" android:host="github.com" />
+                <data android:scheme="https" android:host="huggingface.co" />
             </intent-filter>
         </activity>
 
