@@ -155,9 +155,14 @@ class VoiceService(private val context: Context) {
     /**
      * Play welcome sequence: female voice followed by male voice
      * @param apiKey The ElevenLabs API key
+     * @param scope The coroutine scope to use for launching the second voice
      * @param onComplete Callback when entire sequence completes
      */
-    suspend fun playWelcomeSequence(apiKey: String, onComplete: (() -> Unit)? = null) {
+    suspend fun playWelcomeSequence(
+        apiKey: String,
+        scope: kotlinx.coroutines.CoroutineScope,
+        onComplete: (() -> Unit)? = null
+    ) {
         // First, play female voice with a welcome message
         speak(
             text = "Welcome to Unicorn Pajamas!",
@@ -165,7 +170,7 @@ class VoiceService(private val context: Context) {
             apiKey = apiKey
         ) {
             // After female voice completes, play male voice
-            kotlinx.coroutines.GlobalScope.launch(Dispatchers.Main) {
+            scope.launch(Dispatchers.Main) {
                 speak(
                     text = "Learning through games for everyone.",
                     voiceId = VOICE_LUCA,  // Calm, gentle male voice

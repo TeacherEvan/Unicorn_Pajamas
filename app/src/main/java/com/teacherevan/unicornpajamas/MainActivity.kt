@@ -20,6 +20,7 @@ import com.teacherevan.unicornpajamas.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -264,7 +265,7 @@ class MainActivity : AppCompatActivity() {
 
         mainScope.launch {
             try {
-                voiceService.playWelcomeSequence(apiKey) {
+                voiceService.playWelcomeSequence(apiKey, mainScope) {
                     log("Welcome voice sequence completed")
                 }
             } catch (e: Exception) {
@@ -275,6 +276,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        mainScope.cancel()
         voiceService.cleanup()
     }
 }
