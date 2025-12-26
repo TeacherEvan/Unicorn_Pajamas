@@ -22,4 +22,7 @@
     <string name="push_progress">Pushing to Hugging Face...</string>
     <string name="invalid_url">Please enter valid repository URLs</string>
     <string name="missing_tokens">Please configure your access tokens in Settings</string>
+    <string name="elevenlabs_api_key">ElevenLabs API Key</string>
+    <string name="enter_elevenlabs_key">Enter ElevenLabs API key</string>
+    <string name="clear_logs">Clear Logs</string>
 </resources>

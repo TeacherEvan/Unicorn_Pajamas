@@ -11,13 +11,15 @@
 - ⚡ Background sync using WorkManager
 - 📊 Real-time progress tracking and logging
 - 🎨 Material Design UI
+- 🎙️ Voice greetings powered by ElevenLabs API
 
 ## How It Works
 
-1. **Configure Credentials**: Set up your GitHub Personal Access Token (PAT) and Hugging Face token in the Settings menu
+1. **Configure Credentials**: Set up your GitHub Personal Access Token (PAT), Hugging Face token, and optionally ElevenLabs API key in the Settings menu
 2. **Enter Repository URLs**: Input the GitHub repository URL you want to clone and the Hugging Face repository URL where you want to push
 3. **Sync**: Tap the "Sync Repository" button to start the process
 4. **Monitor Progress**: Watch real-time logs as the app clones from GitHub and pushes to Hugging Face
+5. **Enjoy Voice Greetings**: If ElevenLabs API key is configured, hear a welcoming voice sequence on app launch
 
 ## Setup
 
@@ -27,6 +29,7 @@
 - Android SDK API 26 (Android 8.0) or higher
 - GitHub Personal Access Token with repo permissions
 - Hugging Face Access Token with write permissions
+- (Optional) ElevenLabs API Key for voice greetings
 
 ### Building the App
 
@@ -48,7 +51,19 @@
 2. Tap the Settings icon (gear) in the toolbar
 3. Enter your GitHub Personal Access Token
 4. Enter your Hugging Face Access Token
-5. Tap "Save Credentials"
+5. (Optional) Enter your ElevenLabs API Key for voice greetings
+6. Tap "Save Credentials"
+
+### Voice Greetings Setup (Optional)
+
+To enable the welcoming voice feature:
+
+1. Sign up for an [ElevenLabs](https://elevenlabs.io/) account
+2. Generate an API key from your account settings
+3. Enter the API key in the Settings dialog
+4. Relaunch the app to hear the voice greeting sequence
+
+For detailed information about the voice feature, see [VOICE_INTEGRATION.md](VOICE_INTEGRATION.md).
 
 ## Usage
 
@@ -146,6 +161,7 @@ For contributors, please review:
 ## Documentation
 
 - **[README.md](README.md)** - This file (getting started)
+- **[VOICE_INTEGRATION.md](VOICE_INTEGRATION.md)** - Voice greetings feature guide
 - **[DEVELOPMENT_METHODOLOGY.md](DEVELOPMENT_METHODOLOGY.md)** - Senior Architect development standards
 - **[BUILD_FIX.md](BUILD_FIX.md)** - Build system troubleshooting
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture

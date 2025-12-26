@@ -17,6 +17,11 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.google.android.material.textfield.TextInputEditText
 import com.teacherevan.unicornpajamas.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -25,8 +30,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var securePreferences: SecurePreferences
+    private lateinit var voiceService: VoiceService
     private val workManager by lazy { WorkManager.getInstance(this) }
     private val logBuilder = StringBuilder()
+    private val mainScope = CoroutineScope(Dispatchers.Main + Job())
+    private var welcomeVoicePlayed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +42,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         securePreferences = SecurePreferences(this)
+        voiceService = VoiceService(this)
 
         setupUI()
         handleIntent(intent)
+        playWelcomeVoice()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -86,16 +96,21 @@ class MainActivity : AppCompatActivity() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_settings, null)
         val githubTokenInput = dialogView.findViewById<TextInputEditText>(R.id.githubTokenInput)
         val hfTokenInput = dialogView.findViewById<TextInputEditText>(R.id.hfTokenInput)
+        val elevenLabsApiKeyInput = dialogView.findViewById<TextInputEditText>(R.id.elevenLabsApiKeyInput)
 
         // Load existing tokens (masked)
         val githubToken = securePreferences.getGitHubToken()
         val hfToken = securePreferences.getHuggingFaceToken()
+        val elevenLabsApiKey = securePreferences.getElevenLabsApiKey()
         
         if (githubToken != null) {
             githubTokenInput.setText("••••••••")
         }
         if (hfToken != null) {
             hfTokenInput.setText("••••••••")
+        }
+        if (elevenLabsApiKey != null) {
+            elevenLabsApiKeyInput.setText("••••••••")
         }
 
         AlertDialog.Builder(this)
@@ -104,12 +119,16 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton(R.string.save_credentials) { _, _ ->
                 val newGithubToken = githubTokenInput.text.toString()
                 val newHfToken = hfTokenInput.text.toString()
+                val newElevenLabsApiKey = elevenLabsApiKeyInput.text.toString()
 
                 if (newGithubToken.isNotEmpty() && !newGithubToken.startsWith("•")) {
                     securePreferences.saveGitHubToken(newGithubToken)
                 }
                 if (newHfToken.isNotEmpty() && !newHfToken.startsWith("•")) {
                     securePreferences.saveHuggingFaceToken(newHfToken)
+                }
+                if (newElevenLabsApiKey.isNotEmpty() && !newElevenLabsApiKey.startsWith("•")) {
+                    securePreferences.saveElevenLabsApiKey(newElevenLabsApiKey)
                 }
 
                 Toast.makeText(this, R.string.credentials_saved, Toast.LENGTH_SHORT).show()
@@ -227,5 +246,37 @@ class MainActivity : AppCompatActivity() {
         logBuilder.clear()
         binding.logText.text = ""
         log("Logs cleared")
+    }
+
+    private fun playWelcomeVoice() {
+        // Only play welcome voice once per app session
+        if (welcomeVoicePlayed) {
+            return
+        }
+
+        val apiKey = securePreferences.getElevenLabsApiKey()
+        if (apiKey.isNullOrEmpty()) {
+            log("ElevenLabs API key not configured. Set it in Settings to enable voice greetings.")
+            return
+        }
+
+        welcomeVoicePlayed = true
+        log("Playing welcome voice sequence...")
+
+        mainScope.launch {
+            try {
+                voiceService.playWelcomeSequence(apiKey, mainScope) {
+                    log("Welcome voice sequence completed")
+                }
+            } catch (e: Exception) {
+                log("Error playing welcome voice: ${e.message}")
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainScope.cancel()
+        voiceService.cleanup()
     }
 }

@@ -33,6 +33,14 @@ class SecurePreferences(context: Context) {
         return sharedPreferences.getString(KEY_HF_TOKEN, null)
     }
 
+    fun saveElevenLabsApiKey(apiKey: String) {
+        sharedPreferences.edit().putString(KEY_ELEVENLABS_API_KEY, apiKey).apply()
+    }
+
+    fun getElevenLabsApiKey(): String? {
+        return sharedPreferences.getString(KEY_ELEVENLABS_API_KEY, null)
+    }
+
     fun clear() {
         sharedPreferences.edit().clear().apply()
     }
@@ -40,5 +48,6 @@ class SecurePreferences(context: Context) {
     companion object {
         private const val KEY_GITHUB_TOKEN = "github_token"
         private const val KEY_HF_TOKEN = "huggingface_token"
+        private const val KEY_ELEVENLABS_API_KEY = "elevenlabs_api_key"
     }
 }
