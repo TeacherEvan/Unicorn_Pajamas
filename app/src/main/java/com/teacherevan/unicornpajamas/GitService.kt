@@ -119,6 +119,10 @@ class GitService {
         }
         
         override fun isCancelled(): Boolean = false
+
+        override fun showDuration(p0: Boolean) {
+            // No-op: duration display not required
+        }
     }
     
     companion object {

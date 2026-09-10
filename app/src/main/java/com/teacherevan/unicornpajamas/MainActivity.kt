@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewParent
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -236,7 +237,7 @@ class MainActivity : AppCompatActivity() {
         binding.logText.post {
             var parent = binding.logText.parent
             while (parent != null && parent !is android.widget.ScrollView) {
-                parent = parent.parent as? android.view.View
+                parent = parent.parent as? ViewParent
             }
             (parent as? android.widget.ScrollView)?.fullScroll(View.FOCUS_DOWN)
         }

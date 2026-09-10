@@ -72,3 +72,6 @@ Thumbs.db
 
 # Android Profiling
 *.hprof
+
+# V2 audit scratch (surgical-implementation runtime artifacts)
+docs/.scratch-audit/
