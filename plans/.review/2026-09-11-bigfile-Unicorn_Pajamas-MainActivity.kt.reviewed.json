@@ -1,0 +1,11 @@
+{
+  "plan": "2026-09-11-bigfile-Unicorn_Pajamas-MainActivity.kt.md",
+  "verdict": "NEEDS-REVISION",
+  "ready_for_impl": false,
+  "gaps": [
+    "**Toolchain mismatch**: The target is a Kotlin/Android file (`MainActivity.kt` under `src/main/java/`), but every objective references TypeScript/Next.js tooling \u2014 `pnpm dlx knip/ts-prune`, `index.ts` barrels, `pnpm run type-check/lint/test/build`. These tools do not operate on Kotlin source. The entire plan is built on a wrong-language template.",
+    "**Zero structural signals, yet 12 objectives claimed \"derived\"**: The structural analysis section explicitly states \"(no structural signals detected)\", but the plan still lists 12 objectives as if they were file-aware. OBJ-003 through OBJ-012 are byte-for-byte identical \"Hardening pass N\" entries \u2014 pure filler, not derived from any analysis of the actual file.",
+    "**Missing required sections**: The structural check flags `has_header=None`, `has_imports=None`, `has_why=None`, `has_dod=None`, `has_security=None`. The \"Why\" section exists but is generic (\"largest source file\") with no file-specific rationale. There is no security section, and the DoD entries under each objective are empty placeholders with no actual completion criteria filled in."
+  ],
+  "reviewed_at": "2026-09-11T06:18:33.378938+07:00"
+}

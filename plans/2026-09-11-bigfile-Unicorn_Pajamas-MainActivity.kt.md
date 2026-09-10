@@ -136,3 +136,15 @@ derived from the structural signals above — they name concrete extractions
   its next tick.
 - implementer: `cron_surgical_impl.py` will pick this plan up once the reviewer
   marks it `READY` or `READY-WITH-WARNINGS`.
+
+
+## REVIEW 2026-09-11T06:18:33.377907+07:00
+
+**Verdict:** `NEEDS-REVISION`
+
+**Structural check:** objectives=12 file_header=✓ imports=✓ why=✓ dod=✓ security=✓
+
+**Gaps:**
+1. **Toolchain mismatch**: The target is a Kotlin/Android file (`MainActivity.kt` under `src/main/java/`), but every objective references TypeScript/Next.js tooling — `pnpm dlx knip/ts-prune`, `index.ts` barrels, `pnpm run type-check/lint/test/build`. These tools do not operate on Kotlin source. The entire plan is built on a wrong-language template.
+2. **Zero structural signals, yet 12 objectives claimed "derived"**: The structural analysis section explicitly states "(no structural signals detected)", but the plan still lists 12 objectives as if they were file-aware. OBJ-003 through OBJ-012 are byte-for-byte identical "Hardening pass N" entries — pure filler, not derived from any analysis of the actual file.
+3. **Missing required sections**: The structural check flags `has_header=None`, `has_imports=None`, `has_why=None`, `has_dod=None`, `has_security=None`. The "Why" section exists but is generic ("largest source file") with no file-specific rationale. There is no security section, and the DoD entries under each objective are empty placeholders with no actual completion criteria filled in.
