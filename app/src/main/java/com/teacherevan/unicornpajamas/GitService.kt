@@ -77,7 +77,7 @@ class GitService {
             val pushCommand = git.push()
                 .setRemote(REMOTE_NAME)
                 .setPushAll()
-                .setForce(true)
+                .setForce(FORCE_PUSH)
                 .setProgressMonitor(GitProgressMonitor(onProgress))
             
             if (token != null) {
@@ -128,5 +128,6 @@ class GitService {
     companion object {
         private const val TAG = "GitService"
         private const val REMOTE_NAME = "huggingface"
+        private const val FORCE_PUSH = false  // force-push disabled by default to preserve remote history
     }
 }
